@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{760540F0-5CDA-43A2-A84E-8A0B1E92F046}</ProjectGuid>
-    <RootNamespace>tencent</RootNamespace>
+    <ProjectGuid>{2D6E7F85-361A-47BB-A48A-82F5480427BA}</ProjectGuid>
+    <RootNamespace>test</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -115,19 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Util.cpp" />
     <ClCompile Include="main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Util.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="md.txt">
-      <DeploymentContent>true</DeploymentContent>
-    </Text>
-    <Text Include="说明.txt">
-      <DeploymentContent>true</DeploymentContent>
-    </Text>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,10 +1,10 @@
-#ifndef __COMM_FUN__
-#define __COMM_FUN__
+#ifndef __UTIL__
+#define __UTIL__
 
 #include<iostream>
 #include<vector>
 #include<string>
-class CommFun
+class Util
 {
 public:
 	static std::vector<std::string> split(const std::string str, const std::string c);

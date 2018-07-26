@@ -1,6 +1,6 @@
-#include "CommFun.h"
+#include "Util.h"
 
-std::vector<std::string> CommFun::split(const std::string str, const std::string c)
+std::vector<std::string> Util::split(const std::string str, const std::string c)
 {
 	std::vector<std::string> v;
 	std::string::size_type pos1, pos2;
