@@ -122,8 +122,12 @@
     <ClInclude Include="CommFun.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\..\..\..\..\Desktop\md.txt" />
-    <Text Include="..\..\..\..\..\Desktop\说明.txt" />
+    <Text Include="md.txt">
+      <DeploymentContent>true</DeploymentContent>
+    </Text>
+    <Text Include="说明.txt">
+      <DeploymentContent>true</DeploymentContent>
+    </Text>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

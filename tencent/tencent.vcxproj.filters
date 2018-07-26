@@ -28,10 +28,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\..\..\..\..\Desktop\md.txt">
+    <Text Include="md.txt">
       <Filter>资源文件</Filter>
     </Text>
-    <Text Include="..\..\..\..\..\Desktop\说明.txt">
+    <Text Include="说明.txt">
       <Filter>资源文件</Filter>
     </Text>
   </ItemGroup>

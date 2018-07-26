@@ -1,4 +1,5 @@
 #include<iostream>
+#include<fstream>
 #include<vector>
 #include<string>
 
@@ -66,7 +67,17 @@ void buildTree(TNode& root, string record)
 }
 int main() 
 {
-
+	ifstream f("md.txt");
+	if (!f.is_open()) {
+		cout << "打开文件失败" << endl;
+		return 0;
+	}
+	while (!f.eof()) {
+	
+		string s;
+		f >> s;
+		cout << s;
+	}
 
 
 	TNode n = paserString("                    123:[f728<0.468949] yes=1,no=2,missing=2,gain=1.71789e+06,cover=1.08553e+07");
