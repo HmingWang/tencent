@@ -10,7 +10,7 @@ int main() {
 	srand(time(0));
 	float a;
 	float b;
-	float c;
+	int c;
 	//生成10行，每行5000个浮点数
 	int n = 100;
 	while (n--) {
