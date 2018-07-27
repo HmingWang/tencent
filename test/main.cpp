@@ -6,7 +6,7 @@ using namespace std;
 int main() {
 
 	//生成测试文件
-	ofstream f("../tencent/test.txt");
+	ofstream f("test.txt");
 	srand(time(0));
 	float a;
 	float b;

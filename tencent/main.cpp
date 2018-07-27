@@ -23,7 +23,7 @@ vector<TNode*> forest;
 char line[1000];
 float testdata[5000];
 
-
+//½âÎö×Ö·û´®
 TNode* paserString(string record) {
 	TNode* node=new TNode();
 	node->lnode = nullptr;
@@ -32,8 +32,7 @@ TNode* paserString(string record) {
 	node->isleaf = record.find('l') != string::npos;
 
 	if (node->isleaf) {
-		sscanf_s(record.c_str(), "%d:leaf=%f",
-			&node->id,  &node->value);
+		sscanf_s(record.c_str(), "%d:leaf=%f",	&node->id,  &node->value);
 	}
 	else {
 		sscanf_s(record.c_str(), "%d:[f%d<%f] yes=%d,no=%d,missing=%d",
@@ -42,6 +41,8 @@ TNode* paserString(string record) {
 	
 	return node;
 }
+
+//µÝ¹é½¨Ê÷º¯Êý
 void buildTree(TNode* root, ifstream& f)
 {
 	f.getline(line, 1000);
@@ -64,13 +65,13 @@ void buildTree(TNode* root, ifstream& f)
 }
 
 
-
+//µÝ¹é¼ìË÷º¯Êý
 float searchTree(TNode* root,float* data) {
 	//µÝ¹éÖÕÖ¹Ìõ¼þ
 	if (root->isleaf) return root->value;
 
 	float value=0.0;
-	if (abs(data[root->index])< 1e-6 ) {
+	if (fabs(data[root->index])< 1e-6 ) {
 		//missing
 		cout << "missing " <<data[root->index]<< endl;
 		if (root->lnode->id == root->missing)
@@ -80,7 +81,7 @@ float searchTree(TNode* root,float* data) {
 		else
 			cout << "Æ¥Åämissing½ÚµãÒì³£" << endl;
 	}
-	else if (data[root->index] < root->value) {
+	else if (data[root->index] < root->value && fabs(root->value- data[root->index])>1e-6 ) {
 		//yes
 		if (root->lnode->id == root->yes)
 			value=searchTree(root->lnode, data);
