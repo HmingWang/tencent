@@ -17,6 +17,7 @@ struct TNode {
 	int missing;
 	TNode* lnode;
 	TNode* rnode;
+	TNode* subnodes[2];
 	bool isleaf;
 };
 vector<TNode*> forest;
@@ -88,10 +89,41 @@ void buildTree(TNode* root, ifstream& f)
 
 float testdata[5000];
 
-float compute() {
+float searchTree(TNode* root,float* data) {
+	//递归终止
+	if (root->isleaf) return root->value;
 
-
+	float value=0.0;
+	if (abs(data[root->index])< 1e-6 ) {
+		//missing
+		if (root->lnode->id == root->missing)
+			value=searchTree(root->lnode, data);
+		else if (root->rnode->id == root->missing)
+			value=searchTree(root->rnode, data);
+		else
+			cout << "匹配missing节点异常" << endl;
+	}
+	else if (data[root->index] < root->value) {
+		//yes
+		if (root->lnode->id == root->yes)
+			value=searchTree(root->lnode, data);
+		else if (root->rnode->id == root->yes)
+			value=searchTree(root->rnode, data);
+		else
+			cout << "匹配yes节点异常" << endl;
+	}
+	else {
+		//no
+		if (root->lnode->id == root->no)
+			value=searchTree(root->lnode, data);
+		else if (root->rnode->id == root->no)
+			value=searchTree(root->rnode, data);
+		else
+			cout << "匹配no节点异常" << endl;
+	}
+	return value;
 }
+
 int main() 
 {
 	ifstream f("md.txt");
@@ -117,17 +149,17 @@ int main()
 	}
 
 	//读取test数组
+	float sum;
 	while (!t.eof()) {
+		sum = 0.0;
 		for (int i = 0; i < 5000; ++i) {
 			t >> testdata[i];
 		}
-
+		for (auto i : forest) {
+			sum += searchTree(i,testdata);
+		}
+		r << sum << endl;
 	}
-
-
-	//TNode n = paserString("123:[f728<0.468949] yes=1,no=2,missing=2,gain=1.71789e+06,cover=1.08553e+07");
-	//if (n.id == 0) forest.push_back(n);
-	//buildTree(n,)
 
 	system("pause");
 	return 0;
