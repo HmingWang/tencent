@@ -96,6 +96,7 @@ float searchTree(TNode* root,float* data) {
 	float value=0.0;
 	if (abs(data[root->index])< 1e-6 ) {
 		//missing
+		cout << "missing" << endl;
 		if (root->lnode->id == root->missing)
 			value=searchTree(root->lnode, data);
 		else if (root->rnode->id == root->missing)
@@ -126,19 +127,30 @@ float searchTree(TNode* root,float* data) {
 
 int main() 
 {
+
+	cout << "==========================================" << endl;
+	cout << "               使用说明                   " << endl;
+	cout << "1.读取当前文件夹下的md.txt创建数据索引      " << endl;
+	cout << "2.读取当前文件夹下的test.txt作为测试数据源  " << endl;
+	cout << "3.测试数据源数组元素使用空格隔开            " << endl;
+	cout << "4.测试结果输出到result.txt中               " << endl;
+	cout << "==========================================" << endl;
+
+
 	ifstream f("md.txt");
 	ifstream t("test.txt");
 	ofstream r("result.txt");
 	if (!f.is_open()) {
-		cout << "打开数据文件失败" << endl;
+		cout << "打开数据文件md.txt失败" << endl;
 		return 0;
 	}
 
 	if (!t.is_open()) {
-		cout << "打开测试文件失败" << endl;
+		cout << "打开测试文件test.txt失败" << endl;
 		return 0;
 	}
 	
+	cout << "创建索引树" << endl;
 	//建树
 	while (!f.eof()) {
 		f.getline(line, 1000);
@@ -150,14 +162,16 @@ int main()
 
 	//读取test数组
 	float sum;
-	while (!t.eof()) {
+	while (!t.eof()&&t.peek()!=EOF) {
 		sum = 0.0;
+		memset(testdata, 0, sizeof(testdata));
 		for (int i = 0; i < 5000; ++i) {
 			t >> testdata[i];
 		}
 		for (auto i : forest) {
 			sum += searchTree(i,testdata);
 		}
+		cout << sum << endl;
 		r << sum << endl;
 	}
 

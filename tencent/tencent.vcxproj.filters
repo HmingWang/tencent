@@ -29,6 +29,12 @@
     <Text Include="说明.txt">
       <Filter>资源文件</Filter>
     </Text>
+    <Text Include="test.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="result.txt">
+      <Filter>资源文件</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Util.h">

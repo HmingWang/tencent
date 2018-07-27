@@ -125,6 +125,8 @@
     <Text Include="md.txt">
       <DeploymentContent>true</DeploymentContent>
     </Text>
+    <Text Include="result.txt" />
+    <Text Include="test.txt" />
     <Text Include="说明.txt">
       <DeploymentContent>true</DeploymentContent>
     </Text>
