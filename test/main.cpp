@@ -12,7 +12,7 @@ int main() {
 	float b;
 	float c;
 	//生成10行，每行5000个浮点数
-	int n = 10;
+	int n = 100;
 	while (n--) {
 		int m = 5000;
 		while (m--) {

@@ -3,8 +3,6 @@
 #include<vector>
 #include<string>
 
-#include"Util.h"
-
 using namespace std;
 
 //节点结构体
@@ -17,53 +15,31 @@ struct TNode {
 	int missing;
 	TNode* lnode;
 	TNode* rnode;
-	TNode* subnodes[2];
 	bool isleaf;
 };
+
+//全局变量
 vector<TNode*> forest;
 char line[1000];
+float testdata[5000];
 
-bool isLeaf(string record) {
-	return record.find("leaf")!=string::npos;
-}
+
 TNode* paserString(string record) {
 	TNode* node=new TNode();
-	node->isleaf = isLeaf(record);
-	if (node->isleaf) 
-	{
-		//叶子节点
-		node->value = atof(Util::split(Util::split(Util::split(record, ":")[1], ",")[0], "=")[1].c_str());
-		node->id = atoi(Util::split(record, ":")[0].c_str());
-	}
-	else
-	{
-		//非叶子节点
-		size_t pos1 = record.find_first_of(':');
-		size_t pos2 = 0;
-		size_t len = record.length();
-		//取标号
-		node->id = atoi(record.substr(0, len - pos1).c_str());
-		//取阈值
-		pos1 = record.find_first_of(']');
-		pos2 = record.find_first_of('<') ;
-		node->value = atof(record.substr(pos2+1, pos1 - pos2+1).c_str());
-		//取索引号
-		pos1 = record.find_first_of('f');
-		node->index = atof(record.substr(pos1+1, pos2 - pos1+1).c_str());
-		//取分支标号
-		vector<string> v = Util::split(record, " ");
-		vector<string> kv;
-		v = Util::split(v[1], ",");
-		for (string s : v)
-		{
-			kv = Util::split(s, "=");
-			if (kv[0] == "yes") node->yes = atoi(kv[1].c_str());
-			if (kv[0] == "no") node->no = atoi(kv[1].c_str());
-			if (kv[0] == "missing") node->missing = atoi(kv[1].c_str());
-		}
-	}
 	node->lnode = nullptr;
 	node->rnode = nullptr;
+
+	node->isleaf = record.find('l') != string::npos;
+
+	if (node->isleaf) {
+		sscanf_s(record.c_str(), "%d:leaf=%f",
+			&node->id,  &node->value);
+	}
+	else {
+		sscanf_s(record.c_str(), "%d:[f%d<%f] yes=%d,no=%d,missing=%d",
+			&node->id, &node->index, &node->value, &node->yes, &node->no, &node->missing);
+	}
+	
 	return node;
 }
 void buildTree(TNode* root, ifstream& f)
@@ -84,19 +60,19 @@ void buildTree(TNode* root, ifstream& f)
 		root->rnode = n;
 		if (!n->isleaf) buildTree(n, f);
 	}
-	if (n->isleaf) return;
+	return;
 }
 
-float testdata[5000];
+
 
 float searchTree(TNode* root,float* data) {
-	//递归终止
+	//递归终止条件
 	if (root->isleaf) return root->value;
 
 	float value=0.0;
 	if (abs(data[root->index])< 1e-6 ) {
 		//missing
-		cout << "missing" << endl;
+		cout << "missing " <<data[root->index]<< endl;
 		if (root->lnode->id == root->missing)
 			value=searchTree(root->lnode, data);
 		else if (root->rnode->id == root->missing)
@@ -161,6 +137,7 @@ int main()
 	}
 
 	//读取test数组
+	cout << "读取测试数据" << endl;
 	float sum;
 	while (!t.eof()&&t.peek()!=EOF) {
 		sum = 0.0;
@@ -168,6 +145,7 @@ int main()
 		for (int i = 0; i < 5000; ++i) {
 			t >> testdata[i];
 		}
+		if (t.eof()) break;
 		for (auto i : forest) {
 			sum += searchTree(i,testdata);
 		}
